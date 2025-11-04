@@ -63,7 +63,7 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
       }
     });
     const percentage = totalPoints > 0 ? (score / totalPoints) * 100 : 0;
-    const isPassed = percentage >= 50;
+    const isPassed = percentage > 50;
     return { score, totalPoints, percentage, isPassed };
   };
 
@@ -242,7 +242,7 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
             size="sm"
             onClick={handlePeekAndSelect}
             disabled={
-              isPeeking || selectedAnswer === currentQuestion.correctAnswer
+              isPeeking
             }
           >
             {isPeeking ? "💡 Odpowiedź zaznaczona" : "💡 Pokaż odpowiedź"}

@@ -1,0 +1,194 @@
+[
+  {
+    "id": 1,
+    "question": "Co zapewnia konwencja berneńska z 1886 r.?",
+    "options": {
+      "A": "Globalną rejestrację patentów za pomocą jednego wniosku.",
+      "B": "Automatyczną ochronę praw autorskich po stworzeniu utworu, bez rejestracji.",
+      "C": "Ochronę znaków towarowych wyłącznie na terenie Europy.",
+      "D": "Ujednolicenie przepisów dotyczących nieuczciwej konkurencji."
+    },
+    "correctAnswer": "B",
+    "points": 1
+  },
+  {
+    "id": 2,
+    "question": "Czym zajmuje się konwencja paryska z 1883 r.?",
+    "options": {
+      "A": "Ochroną patentów, znaków towarowych i wzorów przemysłowych.",
+      "B": "Wyłącznie ochroną praw autorskich w internecie.",
+      "C": "Finansowaniem wynalazców i artystów.",
+      "D": "Ustalaniem minimalnych stawek licencyjnych za utwory muzyczne."
+    },
+    "correctAnswer": "A",
+    "points": 1
+  },
+  {
+    "id": 3,
+    "question": "Jaką kluczową zasadę wprowadziła konwencja paryska z 1883 r.?",
+    "options": {
+      "A": "Zasadę dozwolonego użytku (fair use).",
+      "B": "Zasadę wyczerpania prawa (exhaustion).",
+      "C": "Zasadę pierwszeństwa (priority), czyli możliwość \"zarezerwowania\" daty zgłoszenia.",
+      "D": "Zasadę obowiązkowej rejestracji każdego dzieła."
+    },
+    "correctAnswer": "C",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "question": "Co reguluje ustawa o prawie autorskim?",
+    "options": {
+      "A": "Wyłącznie zasady rejestracji wynalazków w urzędzie patentowym.",
+      "B": "Kwestie związane z czynami nieuczciwej konkurencji w reklamie.",
+      "C": "Utwory, prawa twórców, licencje, dozwolony użytek i prawa pokrewne.",
+      "D": "Zasady ochrony i rejestracji baz danych."
+    },
+    "correctAnswer": "C",
+    "points": 1
+  },
+  {
+    "id": 5,
+    "question": "Co reguluje prawo własności przemysłowej?",
+    "options": {
+      "A": "Wyłącznie prawa autorów książek i muzyki.",
+      "B": "Patenty, znaki towarowe, wzory przemysłowe i użytkowe.",
+      "C": "Zasady budowy fabryk i zakładów produkcyjnych.",
+      "D": "Ochronę danych osobowych w przemyśle."
+    },
+    "correctAnswer": "B",
+    "points": 1
+  },
+  {
+    "id": 6,
+    "question": "Co reguluje ustawa o zwalczaniu nieuczciwej konkurencji?",
+    "options": {
+      "A": "Ustalanie cen maksymalnych na produkty pierwszej potrzeby.",
+      "B": "Przyznawanie patentów na wynalazki biotechnologiczne.",
+      "C": "Zasady przyznawania licencji na oprogramowanie komputerowe.",
+      "D": "Czyny nieuczciwej konkurencji w handlu, reklamie i oznaczeniu produktów."
+    },
+    "correctAnswer": "D",
+    "points": 1
+  },
+  {
+    "id": 7,
+    "question": "Co chroni ustawa o ochronie baz danych?",
+    "options": {
+      "A": "Sprzęt komputerowy (serwery) przechowujący bazy danych.",
+      "B": "Tylko i wyłącznie bazy danych należące do instytucji rządowych.",
+      "C": "Dobór, zestawienie, strukturę oraz nakład inwestycyjny baz danych.",
+      "D": "Hasła dostępu do baz danych i systemy szyfrowania."
+    },
+    "correctAnswer": "C",
+    "points": 1
+  },
+  {
+    "id": 8,
+    "question": "Kiedy uchwalono ustawę o zwalczaniu nieuczciwej konkurencji?",
+    "options": {
+      "A": "4 lutego 1994 r.",
+      "B": "16 kwietnia 1993 r.",
+      "C": "30 czerwca 2000 r.",
+      "D": "27 lipca 2001 r."
+    },
+    "correctAnswer": "B",
+    "points": 1
+  },
+  {
+    "id": 9,
+    "question": "Kiedy uchwalono ustawę o ochronie baz danych?",
+    "options": {
+      "A": "16 kwietnia 1993 r.",
+      "B": "4 lutego 1994 r.",
+      "C": "27 lipca 2001 r.",
+      "D": "30 czerwca 2000 r."
+    },
+    "correctAnswer": "C",
+    "points": 1
+  },
+  {
+    "id": 10,
+    "question": "Kiedy uchwalono ustawę Prawo własności przemysłowej?",
+    "options": {
+      "A": "30 czerwca 2000 r.",
+      "B": "27 lipca 2001 r.",
+      "C": "16 kwietnia 1993 r.",
+      "D": "4 lutego 1994 r."
+    },
+    "correctAnswer": "A",
+    "points": 1
+  },
+  {
+    "id": 11,
+    "question": "Kiedy uchwalono ustawę o prawie autorskim i prawach pokrewnych?",
+    "options": {
+      "A": "27 lipca 2001 r.",
+      "B": "30 czerwca 2000 r.",
+      "C": "16 kwietnia 1993 r.",
+      "D": "4 lutego 1994 r."
+    },
+    "correctAnswer": "D",
+    "points": 1
+  },
+  {
+    "id": 12,
+    "question": "Jaki był cel traktatów genewskich z 1996 r. (Traktaty WIPO)?",
+    "options": {
+      "A": "Ustanowienie międzynarodowego urzędu patentowego.",
+      "B": "Zakazanie kopiowania utworów w internecie.",
+      "C": "Dostosowanie prawa autorskiego do realiów internetu i środowiska cyfrowego.",
+      "D": "Regulacja międzynarodowej rejestracji znaków towarowych."
+    },
+    "correctAnswer": "C",
+    "points": 1
+  },
+  {
+    "id": 13,
+    "question": "Czego dotyczył protokół madrycki z 1989 r.?",
+    "options": {
+      "A": "Uproszczenia międzynarodowej rejestracji znaków towarowych.",
+      "B": "Ochrony programów komputerowych jako utworów literackich.",
+      "C": "Globalnej koordynacji ochrony wynalazków.",
+      "D": "Zasad dozwolonego użytku w internecie."
+    },
+    "correctAnswer": "A",
+    "points": 1
+  },
+  {
+    "id": 14,
+    "question": "Czego dotyczyło porozumienie madryckie z 1891 r.?",
+    "options": {
+      "A": "Rejestracji międzynarodowych znaków towarowych.",
+      "B": "Rejestracji międzynarodowych patentów.",
+      "C": "Ochrony praw autorskich artystów wykonawców.",
+      "D": "Zasad ochrony baz danych."
+    },
+    "correctAnswer": "A",
+    "points": 1
+  },
+  {
+    "id": 15,
+    "question": "Co umożliwia układ waszyngtoński (PCT) z 1970 r.?",
+    "options": {
+      "A": "Automatyczne przyznanie patentu we wszystkich krajach członkowskich.",
+      "B": "Ochronę praw autorskich w internecie.",
+      "C": "Jednorazowe zgłoszenie patentowe, które może działać w wielu państwach.",
+      "D": "Międzynarodową rejestrację wzorów przemysłowych."
+    },
+    "correctAnswer": "C",
+    "points": 1
+  },
+  {
+    "id": 16,
+    "question": "Jaki jest cel konwencji sztokholmskiej z 1967 r., która ustanowiła WIPO?",
+    "options": {
+      "A": "Ustanowienie światowego sądu ds. własności intelektualnej.",
+      "B": "Globalna koordynacja ochrony własności intelektualnej i wspieranie twórczości.",
+      "C": "Regulacja cen licencji na oprogramowanie.",
+      "D": "Dostosowanie prawa patentowego do wymogów ekologii."
+    },
+    "correctAnswer": "B",
+    "points": 1
+  }
+]

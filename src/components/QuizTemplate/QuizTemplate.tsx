@@ -26,7 +26,6 @@ interface QuizTemplateProps {
   quizData: Question[];
 }
 
-// --- Funkcja mieszająca ---
 const shuffleArray = (array: Question[]): Question[] => {
   const newArray = [...array];
   for (let i = newArray.length - 1; i > 0; i--) {
@@ -36,12 +35,11 @@ const shuffleArray = (array: Question[]): Question[] => {
   return newArray;
 };
 
-// --- Komponent szablonu ---
 export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
   const [gameState, setGameState] = useState<"setup" | "playing" | "finished">(
     "setup",
   );
-  const [numQuestions, setNumQuestions] = useState(10);
+  const [numQuestions, setNumQuestions] = useState(20);
   const [quizSessionQuestions, setQuizSessionQuestions] = useState<Question[]>(
     [],
   );
@@ -55,7 +53,6 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
   );
   const totalAvailableQuestions = allShuffledQuestions.length;
 
-  // --- Logika Obliczeniowa --- (bez zmian)
   const calculateResults = () => {
     let score = 0;
     let totalPoints = 0;
@@ -70,7 +67,6 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
     return { score, totalPoints, percentage, isPassed };
   };
 
-  // --- Handlery --- (bez zmian)
 
   const startQuiz = (count: number) => {
     const sessionQuestions = allShuffledQuestions.slice(0, count);
@@ -129,10 +125,8 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
     setGameState("setup");
   };
 
-  // --- RENDEROWANIE ---
 
   if (gameState === "setup") {
-    // ... (bez zmian)
     return (
       <Container className="my-4" style={{ maxWidth: "600px" }}>
         <Card>
@@ -174,7 +168,6 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
   }
 
   if (gameState === "finished") {
-    // ... (bez zmian)
     const { score, totalPoints, percentage, isPassed } = calculateResults();
     return (
       <Container className="my-4">
@@ -232,7 +225,6 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
     );
   }
 
-  // --- gameState === "playing" ---
   const currentQuestion = quizSessionQuestions[currentQuestionIndex];
   const selectedAnswer = userAnswers[currentQuestion.id];
   const progress =
@@ -270,10 +262,8 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
               let variant = "outline-primary"; // Domyślny kolor
 
               if (isPeeking && isThisCorrect) {
-                // Jeśli podglądamy I to jest poprawna odpowiedź -> zielony
                 variant = "success";
               } else if (isUserChoice) {
-                // Jeśli to jest odpowiedź użytkownika (i nie podglądamy) -> niebieski
                 variant = "primary";
               }
 

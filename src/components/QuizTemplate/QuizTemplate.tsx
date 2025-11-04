@@ -55,9 +55,8 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
   );
   const totalAvailableQuestions = allShuffledQuestions.length;
 
-  // --- Logika Obliczeniowa ---
+  // --- Logika Obliczeniowa --- (bez zmian)
   const calculateResults = () => {
-    // ... (bez zmian)
     let score = 0;
     let totalPoints = 0;
     quizSessionQuestions.forEach((question) => {
@@ -71,10 +70,9 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
     return { score, totalPoints, percentage, isPassed };
   };
 
-  // --- Handlery ---
+  // --- Handlery --- (bez zmian)
 
   const startQuiz = (count: number) => {
-    // ... (bez zmian)
     const sessionQuestions = allShuffledQuestions.slice(0, count);
     setQuizSessionQuestions(sessionQuestions);
     setCurrentQuestionIndex(0);
@@ -83,7 +81,6 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
   };
 
   const handleNumChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // ... (bez zmian)
     let value = parseInt(e.target.value, 10);
     if (isNaN(value)) value = 1;
     if (value > totalAvailableQuestions) value = totalAvailableQuestions;
@@ -92,7 +89,7 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
   };
 
   const handleAnswerSelect = (questionId: number, selectedOption: string) => {
-    setIsPeeking(false); // Resetuj podgląd, jeśli użytkownik sam coś klika
+    setIsPeeking(false);
     setUserAnswers({
       ...userAnswers,
       [questionId]: selectedOption,
@@ -100,8 +97,7 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
   };
 
   const handleNextQuestion = () => {
-    setIsPeeking(false); // Resetuj podgląd
-    // ... (reszta bez zmian)
+    setIsPeeking(false);
     const nextQuestionIndex = currentQuestionIndex + 1;
     if (nextQuestionIndex < quizSessionQuestions.length) {
       setCurrentQuestionIndex(nextQuestionIndex);
@@ -111,25 +107,17 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
   };
 
   const handlePreviousQuestion = () => {
-    setIsPeeking(false); // Resetuj podgląd
-    // ... (reszta bez zmian)
+    setIsPeeking(false);
     const prevQuestionIndex = currentQuestionIndex - 1;
     if (prevQuestionIndex >= 0) {
       setCurrentQuestionIndex(prevQuestionIndex);
     }
   };
 
-  // --- 1. NOWA FUNKCJA ---
-  /** Podgląda odpowiedź ORAZ ją zaznacza */
   const handlePeekAndSelect = () => {
-    // Pobierz aktualne pytanie
     const question = quizSessionQuestions[currentQuestionIndex];
     if (!question) return;
-
-    // 1. Ustaw podgląd (to pokaże zielony przycisk)
     setIsPeeking(true);
-
-    // 2. Wymuś zaznaczenie poprawnej odpowiedzi (to odblokuje "Następne pytanie")
     const correctKey = question.correctAnswer;
     setUserAnswers({
       ...userAnswers,
@@ -253,7 +241,6 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
   return (
     <Container className="my-4" style={{ maxWidth: "800px" }}>
       <Card>
-        {/* --- 2. ZMIANA W Card.Header --- */}
         <Card.Header className="d-flex justify-content-between align-items-center">
           <span>
             Pytanie {currentQuestionIndex + 1} z {quizSessionQuestions.length}
@@ -261,11 +248,10 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
           <Button
             variant="outline-info"
             size="sm"
-            onClick={handlePeekAndSelect} // <-- ZMIANA
-            // Wyłącz, jeśli już podglądamy LUB jeśli poprawna odp. jest już wybrana
+            onClick={handlePeekAndSelect}
             disabled={
               isPeeking || selectedAnswer === currentQuestion.correctAnswer
-            } // <-- ZMIANA
+            }
           >
             {isPeeking ? "💡 Odpowiedź zaznaczona" : "💡 Pokaż odpowiedź"}
           </Button>
@@ -277,19 +263,18 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
           </Card.Title>
           <div className="d-grid gap-2">
             {Object.entries(currentQuestion.options).map(([key, value]) => {
+              // --- ZMIANA: UPROSZCZONA LOGIKA KOLORÓW ---
               const isThisCorrect = key === currentQuestion.correctAnswer;
               const isUserChoice = selectedAnswer === key;
 
-              let variant = "outline-primary";
+              let variant = "outline-primary"; // Domyślny kolor
 
               if (isPeeking && isThisCorrect) {
+                // Jeśli podglądamy I to jest poprawna odpowiedź -> zielony
                 variant = "success";
               } else if (isUserChoice) {
-                variant = isThisCorrect ? "success" : "primary";
-              }
-
-              if (isUserChoice && isPeeking && isThisCorrect) {
-                variant = "success";
+                // Jeśli to jest odpowiedź użytkownika (i nie podglądamy) -> niebieski
+                variant = "primary";
               }
 
               return (

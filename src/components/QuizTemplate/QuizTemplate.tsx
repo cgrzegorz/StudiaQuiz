@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react"; // Dodano useEffect
 import {
   Container,
   Card,
@@ -35,6 +35,44 @@ const shuffleArray = (array: Question[]): Question[] => {
   return newArray;
 };
 
+const shuffleOptions = (
+  options: Record<string, string>,
+  correctKey: string,
+): { newOptions: Record<string, string>; newCorrectKey: string } => {
+  const originalKeys = Object.keys(options).sort();
+  const originalValues = originalKeys.map((key) => options[key]);
+  const correctValue = options[correctKey];
+
+  for (let i = originalValues.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [originalValues[i], originalValues[j]] = [
+      originalValues[j],
+      originalValues[i],
+    ];
+  }
+
+  const newOptions: Record<string, string> = {};
+  let newCorrectKey = "";
+
+  originalKeys.forEach((key, index) => {
+    const newValue = originalValues[index];
+    newOptions[key] = newValue;
+    if (newValue === correctValue) {
+      newCorrectKey = key;
+    }
+  });
+
+  return { newOptions, newCorrectKey };
+};
+
+const formatTime = (totalSeconds: number): string => {
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  const paddedMinutes = String(minutes).padStart(2, "0");
+  const paddedSeconds = String(seconds).padStart(2, "0");
+  return `${paddedMinutes}:${paddedSeconds}`;
+};
+
 export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
   const [gameState, setGameState] = useState<"setup" | "playing" | "finished">(
     "setup",
@@ -47,11 +85,26 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
   const [userAnswers, setUserAnswers] = useState<UserAnswers>({});
   const [isPeeking, setIsPeeking] = useState(false);
 
+  const [elapsedTime, setElapsedTime] = useState(0); // Czas w sekundach
+  const [finalTime, setFinalTime] = useState(0); // Końcowy czas do wyświetlenia
+
   const allShuffledQuestions = useMemo(
     () => shuffleArray(quizData),
     [quizData],
   );
   const totalAvailableQuestions = allShuffledQuestions.length;
+
+  useEffect(() => {
+    if (gameState !== "playing") {
+      return;
+    }
+
+    const intervalId = setInterval(() => {
+      setElapsedTime((prevTime) => prevTime + 1);
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [gameState]); 
 
   const calculateResults = () => {
     let score = 0;
@@ -67,12 +120,28 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
     return { score, totalPoints, percentage, isPassed };
   };
 
-
   const startQuiz = (count: number) => {
-    const sessionQuestions = allShuffledQuestions.slice(0, count);
-    setQuizSessionQuestions(sessionQuestions);
+    const sessionQuestionsData = allShuffledQuestions.slice(0, count);
+
+    const processedSessionQuestions = sessionQuestionsData.map((question) => {
+      const { newOptions, newCorrectKey } = shuffleOptions(
+        question.options,
+        question.correctAnswer,
+      );
+      return {
+        ...question,
+        options: newOptions,
+        correctAnswer: newCorrectKey,
+      };
+    });
+
+    setQuizSessionQuestions(processedSessionQuestions);
     setCurrentQuestionIndex(0);
     setUserAnswers({});
+    
+    setElapsedTime(0);
+    setFinalTime(0);
+
     setGameState("playing");
   };
 
@@ -98,6 +167,7 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
     if (nextQuestionIndex < quizSessionQuestions.length) {
       setCurrentQuestionIndex(nextQuestionIndex);
     } else {
+      setFinalTime(elapsedTime);
       setGameState("finished");
     }
   };
@@ -122,10 +192,10 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
   };
 
   const restartQuiz = () => {
+    setElapsedTime(0);
+    setFinalTime(0);
     setGameState("setup");
   };
-
-
   if (gameState === "setup") {
     return (
       <Container className="my-4" style={{ maxWidth: "600px" }}>
@@ -167,6 +237,7 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
     );
   }
 
+  // --- Ekran "finished" ---
   if (gameState === "finished") {
     const { score, totalPoints, percentage, isPassed } = calculateResults();
     return (
@@ -176,6 +247,9 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
           <p>
             Zdobyłeś {score} na {totalPoints} punktów ({percentage.toFixed(2)}
             %).
+          </p>
+          <p className="mb-0">
+            <strong>Twój czas: {formatTime(finalTime)} ⏱️</strong>
           </p>
           <hr />
           <p className="mb-0">
@@ -232,6 +306,14 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
 
   return (
     <Container className="my-4" style={{ maxWidth: "800px" }}>
+      <Alert
+        variant="secondary"
+        className="text-center py-2"
+        style={{ fontSize: "1.5rem", fontWeight: "bold" }}
+      >
+        Czas: {formatTime(elapsedTime)}
+      </Alert>
+
       <Card>
         <Card.Header className="d-flex justify-content-between align-items-center">
           <span>
@@ -241,9 +323,7 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
             variant="outline-info"
             size="sm"
             onClick={handlePeekAndSelect}
-            disabled={
-              isPeeking
-            }
+            disabled={isPeeking}
           >
             {isPeeking ? "💡 Odpowiedź zaznaczona" : "💡 Pokaż odpowiedź"}
           </Button>
@@ -255,11 +335,10 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
           </Card.Title>
           <div className="d-grid gap-2">
             {Object.entries(currentQuestion.options).map(([key, value]) => {
-              // --- ZMIANA: UPROSZCZONA LOGIKA KOLORÓW ---
               const isThisCorrect = key === currentQuestion.correctAnswer;
               const isUserChoice = selectedAnswer === key;
 
-              let variant = "outline-primary"; // Domyślny kolor
+              let variant = "outline-primary";
 
               if (isPeeking && isThisCorrect) {
                 variant = "success";

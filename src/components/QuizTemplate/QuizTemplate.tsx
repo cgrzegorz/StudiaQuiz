@@ -20,7 +20,6 @@ interface Question {
 }
 type UserAnswers = Record<number, string>;
 
-// --- Propsy ---
 interface QuizTemplateProps {
   title: string;
   quizData: Question[];
@@ -77,7 +76,6 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
   const [gameState, setGameState] = useState<"setup" | "playing" | "finished">(
     "setup",
   );
-  const [numQuestions, setNumQuestions] = useState(20);
   const [quizSessionQuestions, setQuizSessionQuestions] = useState<Question[]>(
     [],
   );
@@ -93,6 +91,8 @@ export const QuizTemplate = ({ title, quizData }: QuizTemplateProps) => {
     [quizData],
   );
   const totalAvailableQuestions = allShuffledQuestions.length;
+
+  const [numQuestions, setNumQuestions] = useState(totalAvailableQuestions > 20 ? 20 : totalAvailableQuestions);
 
   useEffect(() => {
     if (gameState !== "playing") {
